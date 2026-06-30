@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Turbina 1/2 HP | Titan Store</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div>
+        <a class="brand" href="../index.html">Titan Store</a>
+        <p class="tagline">Turbina 1/2 HP</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <div>
+          <span class="eyebrow">Producto destacado</span>
+          <h1>Turbina 1/2 HP</h1>
+          <p>Excelente Caudal.</p>
+          <div class="action-group">
+            <button class="button primary" id="buyNowBtn" type="button">Comprar ahora</button>
+            <a class="button secondary" href="https://ernedxprogramer.github.io/Titan-Store/.">Volver a la página principal</a>
+          </div>
+          <div class="features" style="margin-top: 2.5rem;">
+          </div>
+        </div>
+        <div class="product-image image-switcher">
+          <img id="bikeImage" src="img/turbina.png" alt="Turbina 1/2 HP" />
+        </div>
+      </div>
+    </section>
+
+    <section class="catalogue container" id="productos">
+      <div class="section-header">
+        <div>
+          <h2>Características</h2>
+          <p>Conoce las características del Turbina 1/2 HP</p>
+        </div>
+      </div>
+
+      <div class="features">
+        <article>
+          <h3>1/2 HP</h3>
+          <p>Medio caballo</p>
+        </article>
+
+        <article>
+          <h3>Diseño</h3>
+          <p>Diseño compacto y resistente</p>
+        </article>
+        
+        <article>
+          <h3>Motor Duradero</h3>
+          <p></p>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="modal-overlay" id="buyModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="buyModalTitle">
+      <button class="modal-close" id="closeModalBtn" type="button" aria-label="Cerrar">×</button>
+      <h2 id="buyModalTitle">Completa tu pedido</h2>
+      <p class="modal-subtitle">Enviaremos tus datos directamente a WhatsApp para coordinar el envío.</p>
+      <form id="buyForm" class="buy-form">
+        <label>
+          Nombre completo
+          <input type="text" name="nombre" placeholder="Tu nombre" required />
+        </label>
+        <label>
+          Teléfono de referencia para entrega
+          <input type="tel" name="telefono" placeholder="+1 702 305 0730" required />
+        </label>
+        <label>
+          Dirección de entrega
+          <textarea name="direccion" rows="3" placeholder="Ciudad, estado, calle y número" required></textarea>
+        </label>
+        <label>
+          Punto de referencia
+          <input type="text" name="referencia" placeholder="Ej. Cerca del parque central" required />
+        </label>
+
+        <fieldset class="shipping-options">
+          <legend>Tipo de envío</legend>
+          <label class="shipping-option">
+            <input type="radio" name="envio" value="Marítimo" checked />
+            <span>Marítimo</span>
+          </label>
+          <label class="shipping-option">
+            <input type="radio" name="envio" value="Aéreo" />
+            <span>Aéreo</span>
+          </label>
+          <label class="shipping-option">
+            <input type="radio" name="envio" value="Express" />
+            <span>Express</span>
+          </label>
+        </fieldset>
+
+        <button class="button primary" type="submit">Enviar pedido</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-copy"><strong>Titan Store</strong> © 2026. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    (function(){
+      const modal = document.getElementById('buyModal');
+      const openBtn = document.getElementById('buyNowBtn');
+      const closeBtn = document.getElementById('closeModalBtn');
+      const form = document.getElementById('buyForm');
+      const whatsappNumber = '17023050730';
+
+      const openModal = () => {
+        if (!modal) return;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+      };
+
+      const closeModal = () => {
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+      };
+
+      openBtn?.addEventListener('click', openModal);
+      closeBtn?.addEventListener('click', closeModal);
+      modal?.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal();
+      });
+
+      form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const data = new FormData(form);
+        const nombre = data.get('nombre')?.toString().trim() || 'Sin nombre';
+        const telefono = data.get('telefono')?.toString().trim() || 'Sin teléfono';
+        const direccion = data.get('direccion')?.toString().trim() || 'Sin dirección';
+        const referencia = data.get('referencia')?.toString().trim() || 'Sin referencia';
+        const envio = data.get('envio')?.toString() || 'Marítimo';
+
+        const message = [
+          'Pedido ANDES 600 Pro',
+          `Nombre: ${nombre}`,
+          `Teléfono de referencia: ${telefono}`,
+          `Dirección: ${direccion}`,
+          `Punto de referencia: ${referencia}`,
+          `Tipo de envío: ${envio}`
+        ].join('%0A');
+
+        window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+        form.reset();
+        closeModal();
+      });
+    })();
+  </script>
+</body>
+</html>
